@@ -1,15 +1,19 @@
 const zForm = document.querySelector('.form')
   zInput = document.querySelector('.input')
   zList = document.querySelector('.list');
-  clearAll = document.querySelector('.clear')
+  clearAll = document.querySelector('.clear');
 
-  let todos = [];  //xamma narsani yeg'volishga
+  let localTodo = JSON.parse(window.localStorage.getItem('todo')) 
+  let todos = localTodo || []    //xamma narsani yeg'volishga
+  
+  renderTodos(todos) 
+
   let count= 1;    //unique id uchun
   
   const addTodo = (e) => {
     e.preventDefault()
     let inputvalue = zInput.value
-  
+    
     let newTodo = {
       id: count++,
       title: inputvalue,
@@ -18,7 +22,9 @@ const zForm = document.querySelector('.form')
     
     todos.push(newTodo)
     zInput.value = null
-
+    
+    window.localStorage.setItem('todo', JSON.stringify(todos))
+    
     renderTodos(todos) 
   }
 
