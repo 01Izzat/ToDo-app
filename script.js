@@ -28,9 +28,11 @@ const zForm = document.querySelector('.form')
     renderTodos(todos) 
   }
 
+  renderTodos(todos) 
+
     zForm.addEventListener('submit', addTodo)
 
-    const renderTodos = () => {
+    function renderTodos(todos)  {
       zList.innerHTML = null
       
       todos.forEach((item, index) => {
@@ -55,14 +57,16 @@ const zForm = document.querySelector('.form')
       
       foundObj.isChecked = !foundObj.isChecked
     
+      window.localStorage.setItem('todo', JSON.stringify(todos))
       renderTodos(todos)
+      
       }else if(evt.target.matches('.delete')){
         let foundIndex = todos.findIndex(item => item.id == evt.target.id)
 
         todos.splice(foundIndex, 1)
+        window.localStorage.setItem('todo', JSON.stringify(todos))
         renderTodos(todos)
       }
-      
       
     })
     
